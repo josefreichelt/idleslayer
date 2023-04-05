@@ -16,6 +16,7 @@
                 }
             },
             "args": [],
+            "terminal": "integrated",
             "cwd": "${workspaceFolder}"
         },
         {
