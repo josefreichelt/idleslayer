@@ -14,4 +14,8 @@ impl Enemy {
             name: String::from("Skeleton"),
         }
     }
+
+    pub fn health_percentage(&self) -> u16 {
+        (self.health as f32 / self.max_health as f32 * 100.0) as u16
+    }
 }

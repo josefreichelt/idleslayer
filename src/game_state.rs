@@ -12,3 +12,9 @@ pub enum MenuState {
     Battle,
     Skills
 }
+
+impl Default for MenuState {
+    fn default() -> Self {
+        Self::Battle
+    }
+}
