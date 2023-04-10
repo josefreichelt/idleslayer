@@ -10,7 +10,8 @@ mod enemy;
 mod game;
 mod game_state;
 mod player;
-
+mod render;
+mod battle;
 fn main() -> Result<(), io::Error> {
     let mut terminal = setup_terminal()?;
     game::game_loop(&mut terminal)?;

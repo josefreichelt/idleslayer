@@ -5,6 +5,7 @@ pub struct GameState {
     pub enemy: Enemy,
     pub should_quit: bool,
     pub menu_state: MenuState,
+    pub is_paused: bool,
 }
 
 pub enum MenuState {

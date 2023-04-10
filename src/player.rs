@@ -7,6 +7,7 @@ pub struct Player {
     pub total_xp: u64,
     pub damage: u64,
     pub name: String,
+    pub gold: u64,
 }
 
 impl Player {
@@ -18,6 +19,7 @@ impl Player {
             total_xp: 0,
             damage: 1,
             name: String::from("Bob"),
+            gold: 0,
         }
     }
 
@@ -27,6 +29,7 @@ impl Player {
             Spans::from(format!("XP: Total: {} | Current: {} | Next: LVL {}", self.total_xp,self.current_lvl_xp,self.next_lvl_xp)),
             Spans::from(format!("LVL: {}", self.lvl)),
             Spans::from(format!("Damage: {}", self.damage)),
+            Spans::from(format!("Gold 🪙: {}", self.gold)),
         ];
 
         Paragraph::new(text)

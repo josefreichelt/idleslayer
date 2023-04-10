@@ -3,6 +3,7 @@ pub struct Enemy {
     pub max_health: i64,
     pub name: String,
     pub xp: u64,
+    pub gold: u64,
 }
 
 impl Enemy {
@@ -12,6 +13,7 @@ impl Enemy {
             max_health: 50,
             xp: 10,
             name: String::from("Skeleton"),
+            gold: 1,
         }
     }
 
