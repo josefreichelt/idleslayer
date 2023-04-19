@@ -2,7 +2,5 @@
 using idleslayer;
 
 Application.Init();
-var game = new Game();
-game.Start();
-Application.Run();
+new Game();
 Application.Shutdown();

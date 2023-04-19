@@ -1,4 +1,6 @@
 namespace idleslayer;
+
+using System.Diagnostics;
 using Terminal.Gui;
 
 class BattleView : FrameView
@@ -17,8 +19,8 @@ class BattleView : FrameView
         var enemy = BattleEngine.Enemy;
         var enemyColorScheme = new ColorScheme();
         enemyColorScheme.Normal = new Terminal.Gui.Attribute(Color.Red, Color.Gray);
-        enemyName = new Label($"Battling: {enemy.Name}") { Y = 0,X = Pos.Center() };
-        enemyHp = new Label($"HP: {enemy.Health}") { Y = 1,X= Pos.Center() };
+        enemyName = new Label($"Battling: {enemy.Name}") { Y = 0, X = Pos.Center() };
+        enemyHp = new Label($"HP: {enemy.Health}") { Y = 1, X = Pos.Center() };
 
         enemyHealthBar = new ProgressBar()
         {
@@ -30,12 +32,26 @@ class BattleView : FrameView
             ProgressBarStyle = ProgressBarStyle.Continuous,
             ColorScheme = enemyColorScheme,
         };
-
+        this.Removed += BattleView_Removed;
+        Game.OnGameTick += HandleGameTick;
         Add(enemyName, enemyHp, enemyHealthBar);
     }
 
-    public void HandleGameTick(Enemy enemy)
+    private void BattleView_Removed(View obj)
     {
+        Debug.WriteLine("Disposed Battle VIEW");
+        this.Removed -= BattleView_Removed;
+    }
+
+    ~BattleView()
+    {
+        Game.OnGameTick -= HandleGameTick;
+    }
+    
+
+    public void HandleGameTick(object? sender,EventArgs e)
+    {
+        var enemy = BattleEngine.Enemy;
         enemyName.Text = $"Battling: {enemy.Name}";
         enemyHp.Text = $"HP: {enemy.Health}";
         enemyHealthBar.Fraction = enemy.Health / enemy.HealthMax;
