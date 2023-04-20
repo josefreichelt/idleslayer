@@ -6,7 +6,7 @@ class PlayerView : FrameView
 {
     int goldCount = 0;
     Label gold;
-    public PlayerView()
+    public PlayerView() : base("Player Info")
     {
         var player = BattleEngine.Player;
         var enemy = BattleEngine.Enemy;
@@ -31,7 +31,7 @@ class PlayerView : FrameView
         var enemy = BattleEngine.Enemy;
         gold.Text = $"gold: {player.Gold}";
     }
-    
+
     ~PlayerView()
     {
         Game.OnGameTick -= HandleGameTick;

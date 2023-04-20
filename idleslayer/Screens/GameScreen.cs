@@ -3,9 +3,9 @@ namespace idleslayer;
 using idleslayer.Views;
 using System.Diagnostics;
 using Terminal.Gui;
-class GameView : CenteredWindow
+class GameScreen : CenteredWindow
 {
-    public GameView() : base("[ Idle Slayer ]")
+    public GameScreen() : base("[ Idle Slayer ]")
     {
         Modal = true;
         ColorScheme = Globals.baseColorScheme;

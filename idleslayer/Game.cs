@@ -10,7 +10,7 @@ class Game
     public static bool IsBattling = true;
     public static MenuState MenuState = MenuState.Battle;
 
-    static GameView GameView = new GameView();
+    static GameScreen GameView = new GameScreen();
 
 
     public Game()
@@ -44,7 +44,7 @@ class Game
                 GameView.SwapView(new BattleScreen());
                 break;
             case MenuState.Shop:
-                GameView.SwapView(new SkillsView());
+                GameView.SwapView(new SkillsScreen());
                 break;
             case MenuState.Exit:
                 break;
