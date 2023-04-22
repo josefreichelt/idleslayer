@@ -4,7 +4,6 @@ using System.Diagnostics;
 using Terminal.Gui;
 class PlayerView : FrameView
 {
-    int goldCount = 0;
     Label gold;
     public PlayerView() : base("Player Info")
     {

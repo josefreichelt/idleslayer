@@ -5,7 +5,8 @@ using Terminal.Gui;
 
 class Game
 {
-    public static EventHandler? OnGameTick;
+    public static event EventHandler? OnGameTick;
+    public static event EventHandler<bool>? OnGamePaused;
     public static BattleEngine BattleEngine = new BattleEngine();
     public static bool IsBattling = true;
     public static MenuState MenuState = MenuState.Battle;
@@ -16,15 +17,22 @@ class Game
     public Game()
     {
 
-        Application.MainLoop.AddTimeout(TimeSpan.FromSeconds(1), (loop) =>
+        Application.MainLoop.AddTimeout(TimeSpan.FromSeconds(0.1), (loop) =>
         {
             GameLoop();
             return true;
         });
-        
+
         Application.Run(GameView);
-        
+
     }
+
+    public static void PauseGame(bool isPaused)
+    {
+        IsBattling = isPaused;
+        OnGamePaused?.Invoke(typeof(Game), isPaused);
+    }
+
 
     public void GameLoop()
     {

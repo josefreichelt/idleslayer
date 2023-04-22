@@ -1,6 +1,7 @@
 namespace idleslayer;
 
 using idleslayer.Views;
+using System;
 using System.Diagnostics;
 using Terminal.Gui;
 class GameScreen : CenteredWindow
@@ -11,8 +12,13 @@ class GameScreen : CenteredWindow
         ColorScheme = Globals.baseColorScheme;
         this.Removed += GameView_Removed;
         Ready += GameView_Ready;
+        Game.OnGamePaused += OnGamePaused;
     }
 
+    private void OnGamePaused(object? sender, bool isPaused)
+    {
+        Title = isPaused ? "[ IdleSlayer ]" : "[ IdleSlayer - Paused ]";
+    }
 
     private void GameView_Ready()
     {

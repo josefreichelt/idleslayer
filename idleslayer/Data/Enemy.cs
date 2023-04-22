@@ -11,7 +11,7 @@ class Enemy
 
     public Enemy()
     {
-        Health = 10;
+        Health = 1000;
         HealthMax = 10;
         Gold = 1;
         Xp = 1;
