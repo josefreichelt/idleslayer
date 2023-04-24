@@ -6,6 +6,7 @@ public static class Globals
     public static string GameTitle { get; } = "[ Idle Slayer ]";
 
     public static List<Skill> SkillList = new List<Skill>();
+    public static List<Location> Locations = new List<Location>();
 
     static Globals()
     {
@@ -15,5 +16,13 @@ public static class Globals
         SkillList.Add(new Skill("Slash", 1, 1));
         SkillList.Add(new Skill("Stab", 2, 2));
         SkillList.Add(new Skill("Punch", 5, 10));
+
+        Locations.Add(new Location() {
+            Title = "Training Camp",
+            Enemies = new List<Enemy>() {
+                new Enemy("Training Dummy", 10, 1),
+                new Enemy("Hay Stack", 20, 1),
+            }
+        });
     }
 }

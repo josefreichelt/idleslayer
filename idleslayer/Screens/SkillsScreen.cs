@@ -48,23 +48,22 @@ class SkillsScreen : CenteredWindow
         var buttonGroup = new FrameView();
         buttonGroup.Y = Pos.Top(lastView) + 1;
         buttonGroup.Title = "Grupka";
-        
+
         int skillIdx = 1;
         foreach (var skill in Globals.SkillList)
         {
-            var buttonTitle = $"_{skillIdx} | {skill.Title} - {skill.Cost} gold";
+            var buttonTitle = $"_{skillIdx} | {skill.ToString()}";
             var button = new Button(buttonTitle);
             button.IsDefault = false;
             button.Clicked += () =>
             {
-                Debug.WriteLine($"Clicked skill {skill.Title}");
                 if (BattleEngine.Player.Gold >= skill.Cost)
                 {
-                    Debug.WriteLine($"Purchased skill {skill.Title}");
-                    BattleEngine.Player.Gold -= skill.Cost;
-                    BattleEngine.Player.Damage += skill.Damage;
+                    BattleEngine.Player.PurchaseSkill(skill);
                     goldLabel.Text = $"gold: {BattleEngine.Player.Gold}";
                     damageLabel.Text = $"damage: {BattleEngine.Player.Damage}";
+                    skill.LevelUp();
+                    button.Text = $"_{skillIdx} | {skill.ToString()}";
                 }
             };
             button.Y = Pos.Top(lastView) + skillIdx + 1;
