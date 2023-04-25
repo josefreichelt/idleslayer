@@ -9,13 +9,13 @@ class EnemyView : FrameView
     Label enemyHp;
     ProgressBar enemyHealthBar;
 
-    public EnemyView()
+    public EnemyView(): base("Enemy Info")
     {
         Width = Dim.Fill();
-        Height = Dim.Fill() - 1;
+        Height = Dim.Percent(50);
         X = Pos.Center();
-        Y = Pos.Center();
-        var enemy = BattleEngine.Enemy;
+        Y = 0;
+        var enemy = BattleEngine.CurrentEnemy;
         var enemyColorScheme = new ColorScheme();
         enemyColorScheme.Normal = new Terminal.Gui.Attribute(Color.Red, Color.Gray);
         enemyName = new Label($"Battling: {enemy.Name}") { Y = 0, X = Pos.Center() };
@@ -41,7 +41,7 @@ class EnemyView : FrameView
     }
     public void HandleGameTick(object? sender, EventArgs e)
     {
-        var enemy = BattleEngine.Enemy;
+        var enemy = BattleEngine.CurrentEnemy;
         enemyName.Text = $"Battling: {enemy.Name}";
         enemyHp.Text = $"HP: {enemy.Health}";
         enemyHealthBar.Fraction = enemy.Health / enemy.HealthMax;

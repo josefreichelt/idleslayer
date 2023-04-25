@@ -1,6 +1,7 @@
 namespace idleslayer;
 public class Location
 {
+    public int index { get; set; } = 0;
     public string Title { get; set; } = "";
     public List<Enemy> Enemies { get; set; } = new List<Enemy>();
 
@@ -15,6 +16,8 @@ public class Location
     {
         var random = new Random();
         int index = random.Next(Enemies.Count);
-        return Enemies[index];
+        var enemy = Enemies[index];
+        enemy.Reset();
+        return enemy;
     }
 }

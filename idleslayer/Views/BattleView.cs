@@ -3,7 +3,7 @@ namespace idleslayer;
 using System.Diagnostics;
 using Terminal.Gui;
 
-class BattleView : FrameView
+class BattleView : View
 {
 
 

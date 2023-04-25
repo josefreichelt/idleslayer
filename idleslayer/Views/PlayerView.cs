@@ -8,7 +8,7 @@ class PlayerView : FrameView
     public PlayerView() : base("Player Info")
     {
         var player = BattleEngine.Player;
-        var enemy = BattleEngine.Enemy;
+        var enemy = BattleEngine.CurrentEnemy;
         AutoSize = true;
         X = Pos.Center();
         Y = 0;
@@ -17,24 +17,28 @@ class PlayerView : FrameView
 
 
         var name = new Label($"Name: {player.Name}") { Y = 0 };
-        gold = new Label($"gold: {player.Gold}") { Y = 1 };
-        var damage = new Label($"damage: {player.Damage}") { Y = 2 };
-        Game.OnGameTick += HandleGameTick;
-        Debug.WriteLine("Created PLAYER VIEW");
-        Add(name, gold, damage);
+        gold = new Label(player.GoldString()) { Y = 0 };
+        gold.X = Pos.AnchorEnd() - gold.Text.Length;
+        var damage = new Label($"damage: {player.Damage}") { Y = 1 };
+        damage.X = Pos.AnchorEnd() - damage.Text.Length;
+        var locationView = new LocationView();
+        BattleEngine.OnEnemyChanged += HandleEnemyChanged;
+        Add(name, gold, damage, locationView);
     }
 
-    void HandleGameTick(object? sender, EventArgs e)
+    private void HandleEnemyChanged(object? sender, Enemy e)
     {
         var player = BattleEngine.Player;
-        var enemy = BattleEngine.Enemy;
-        gold.Text = $"gold: {player.Gold}";
+        var enemy = BattleEngine.CurrentEnemy;
+        gold.Text = player.GoldString();
+        gold.X = Pos.AnchorEnd() - gold.Text.Length;
     }
+
+
 
     ~PlayerView()
     {
-        Game.OnGameTick -= HandleGameTick;
-        Debug.WriteLine("Disposed PLAYER VIEW");
+        BattleEngine.OnEnemyChanged -= HandleEnemyChanged;
     }
 
 

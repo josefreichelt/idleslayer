@@ -16,7 +16,7 @@ class Game
 
     public Game()
     {
-
+        BattleEngine.Setup();
         Application.MainLoop.AddTimeout(TimeSpan.FromSeconds(0.1), (loop) =>
         {
             GameLoop();
