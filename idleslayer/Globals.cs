@@ -6,7 +6,6 @@ public static class Globals
     public static ColorScheme invertedColorScheme { get; } = new ColorScheme();
     public static string GameTitle { get; } = "[ Idle Slayer ]";
 
-    public static List<Skill> SkillList = new List<Skill>();
     public static List<Location> Locations = new List<Location>();
 
     static Globals()
@@ -15,9 +14,7 @@ public static class Globals
         baseColorScheme.Focus = new Terminal.Gui.Attribute(Color.Blue, Color.Black);
         invertedColorScheme.Normal = new Terminal.Gui.Attribute(Color.Black, Color.White);
         invertedColorScheme.Focus = new Terminal.Gui.Attribute(Color.Black, Color.Blue);
-        GenerateSkills();
         GenerateLocations();
-
     }
 
     static void GenerateLocations()
@@ -44,10 +41,5 @@ public static class Globals
         }
     }
 
-    static void GenerateSkills()
-    {
-        SkillList.Add(new Skill("Slash", 1, 1));
-        SkillList.Add(new Skill("Stab", 2, 2));
-        SkillList.Add(new Skill("Punch", 5, 10));
-    }
+
 }

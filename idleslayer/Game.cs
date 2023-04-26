@@ -1,5 +1,6 @@
 namespace idleslayer;
 
+using System.Diagnostics;
 using idleslayer.Views;
 using Terminal.Gui;
 
@@ -16,13 +17,14 @@ class Game
 
     public Game()
     {
+        Debug.WriteLine("Game created");
         BattleEngine.Setup();
         Application.MainLoop.AddTimeout(TimeSpan.FromSeconds(0.1), (loop) =>
         {
             GameLoop();
             return true;
         });
-
+        Debug.WriteLine("Running GameView");
         Application.Run(GameView);
 
     }

@@ -8,6 +8,7 @@ class SkillsScreen : CenteredWindow
     Label goldLabel;
     Label damageLabel;
 
+
     public SkillsScreen() : base("[ Skills Shop ]")
     {
         Height = Dim.Fill(2);
@@ -29,11 +30,20 @@ class SkillsScreen : CenteredWindow
     });
 
 
-        Debug.WriteLine("Skiils view created");
+        Debug.WriteLine("Skils view created");
         Add(goldLabel, damageLabel);
         RenderButtons(damageLabel);
         Add(statusBar);
+        var buttonGroup = new FrameView()
+        {
+            Width = Dim.Fill(1),
+            Height = Dim.Sized(10),
+        };
 
+        buttonGroup.Y = Pos.Top(Subviews.Last()) + 5;
+        buttonGroup.Title = "Grupka";
+
+        Add(buttonGroup);
         KeyPress += SkillsScreen_KeyPress;
     }
 
@@ -45,33 +55,33 @@ class SkillsScreen : CenteredWindow
 
     void RenderButtons(View lastView)
     {
-        var buttonGroup = new FrameView();
-        buttonGroup.Y = Pos.Top(lastView) + 1;
-        buttonGroup.Title = "Grupka";
-
-        int skillIdx = 1;
-        foreach (var skill in Globals.SkillList)
+        foreach (var skill in BattleEngine.Player.SkillList)
         {
-            var buttonTitle = $"_{skillIdx} | {skill.ToString()}";
+            if (!skill.isUnlocked) continue;
+            var buttonTitle = skill.ToString();
             var button = new Button(buttonTitle);
             button.IsDefault = false;
             button.Clicked += () =>
             {
-                if (BattleEngine.Player.Gold >= skill.Cost)
-                {
-                    BattleEngine.Player.PurchaseSkill(skill);
-                    goldLabel.Text = $"gold: {BattleEngine.Player.Gold}";
-                    damageLabel.Text = $"damage: {BattleEngine.Player.Damage}";
-                    skill.LevelUp();
-                    button.Text = $"_{skillIdx} | {skill.ToString()}";
-                }
+                HandleSkillButtonClick(button, skill);
             };
-            button.Y = Pos.Top(lastView) + skillIdx + 1;
+            button.Y = Pos.Top(lastView) + skill.index + 1;
             Add(button);
-
-            skillIdx++;
         }
+    }
 
+
+
+    void HandleSkillButtonClick(View button, Skill skill)
+    {
+        if (BattleEngine.Player.Gold >= skill.Cost)
+        {
+            BattleEngine.Player.PurchaseSkill(skill);
+            goldLabel.Text = $"gold: {BattleEngine.Player.Gold}";
+            damageLabel.Text = $"damage: {BattleEngine.Player.Damage}";
+            button.Text = skill.ToString();
+
+        }
     }
 
 }

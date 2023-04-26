@@ -12,7 +12,7 @@ class EnemyView : FrameView
     public EnemyView(): base("Enemy Info")
     {
         Width = Dim.Fill();
-        Height = Dim.Percent(50);
+        Height = Dim.Fill();
         X = Pos.Center();
         Y = 0;
         var enemy = BattleEngine.CurrentEnemy;
