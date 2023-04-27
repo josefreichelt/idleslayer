@@ -4,7 +4,7 @@ public class Location
     public int index { get; set; } = 0;
     public string Title { get; set; } = "";
     public List<Enemy> Enemies { get; set; } = new List<Enemy>();
-
+    public bool IsLast = false;
     public Location() { }
     public Location(string title, List<Enemy> enemies)
     {

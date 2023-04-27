@@ -35,9 +35,21 @@ public static class Globals
                 new Enemy("Killer Rabbit", 50, 3),
             }
         });
+        Locations.Add(new Location()
+        {
+            Title = "Forrest",
+            Enemies = new List<Enemy>() {
+                new Enemy("Wild Boar", 200, 7),
+                new Enemy("Angry Deer", 100, 5),
+            }
+        });
         foreach (var location in Locations)
         {
             location.index = Locations.IndexOf(location);
+            if (location.index == Locations.Count - 1)
+            {
+                location.IsLast = true;
+            }
         }
     }
 

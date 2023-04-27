@@ -36,11 +36,12 @@ namespace idleslayer.Views
          new StatusItem(Key.p , Game.IsBattling ? "~p~  - Pause" :  "~p~ - Unpause",()=>{
             Game.PauseGame(!Game.IsBattling);
         }),
-        new StatusItem(Key.n ,  "~n~ - Next Location",()=>{
-           BattleEngine.ChangeLocation(true);
-        })
+new StatusItem(Key.n, "~n~ - Next Location", () =>
+                {
+                    BattleEngine.ChangeLocation(true);
+                })
 
-    });
+        });
             battleView.Y = Pos.Bottom(playerFrame);
             statusBar.Y = Pos.Bottom(battleView);
             Game.OnGamePaused += OnGamePaused;
@@ -52,6 +53,7 @@ namespace idleslayer.Views
         private void HandleLocationChanged(object? sender, Location e)
         {
             var previousButtonIndex = statusBar.Items.ToList().FindIndex(v => (v.Title.ToString() ?? "").Contains("Previous"));
+            var nextButtonIndex = statusBar.Items.ToList().FindIndex(v => (v.Title.ToString() ?? "").Contains("Next"));
             if (e.index == 0 && previousButtonIndex != -1)
             {
                 statusBar.RemoveItem(previousButtonIndex);
@@ -63,8 +65,16 @@ namespace idleslayer.Views
                     BattleEngine.ChangeLocation(false);
                 }));
             }
+            if (e.IsLast && nextButtonIndex != -1)
             {
-
+                statusBar.RemoveItem(nextButtonIndex);
+            }
+            else if (nextButtonIndex == -1)
+            {
+                statusBar.AddItemAt(statusBar.Items.Count(), new StatusItem(Key.n, "~n~ - Next Location", () =>
+                 {
+                     BattleEngine.ChangeLocation(true);
+                 }));
             }
         }
 

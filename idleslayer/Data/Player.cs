@@ -7,6 +7,8 @@ class Player
     public int Damage { get; set; } = 1;
     public int Xp { get; set; } = 0;
     public List<Skill> SkillList = new List<Skill>();
+    public EventHandler<Skill>? OnSkillPurchased;
+    public EventHandler<Skill>? OnSkillUnlocked;
     public Player()
     {
         GenerateSkills();
@@ -19,6 +21,7 @@ class Player
             Damage += skill.Damage;
             skill.LevelUp();
             CheckSkillsToUnlock();
+            OnSkillPurchased?.Invoke(this, skill);
         }
     }
 
@@ -46,7 +49,9 @@ class Player
         {
             if (SkillList[i - 1].CurrentLevel >= 10)
             {
+                if(SkillList[i].isUnlocked) continue;
                 SkillList[i].isUnlocked = true;
+                OnSkillUnlocked?.Invoke(this, SkillList[i]);
             }
         }
     }

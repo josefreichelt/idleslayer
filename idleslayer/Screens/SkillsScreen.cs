@@ -7,7 +7,7 @@ class SkillsScreen : CenteredWindow
 {
     Label goldLabel;
     Label damageLabel;
-
+    FrameView buttonGroup;
 
     public SkillsScreen() : base("[ Skills Shop ]")
     {
@@ -16,8 +16,8 @@ class SkillsScreen : CenteredWindow
         var player = BattleEngine.Player;
         ColorScheme = Globals.baseColorScheme;
         Modal = true;
-        goldLabel = new Label($"gold: {player.Gold}") { Y = 1 };
-        damageLabel = new Label($"damage: {player.Damage}") { Y = 2 };
+        goldLabel = new Label($"gold: {player.Gold}") { Y = 0 };
+        damageLabel = new Label($"damage: {player.Damage}") { Y = 1 };
         var statusBar = new StatusBar(new StatusItem[] {
         new StatusItem(Key.b, "~b~ Back",()=>{
             Debug.WriteLine("Pressed B");
@@ -32,9 +32,8 @@ class SkillsScreen : CenteredWindow
 
         Debug.WriteLine("Skils view created");
         Add(goldLabel, damageLabel);
-        RenderButtons(damageLabel);
         Add(statusBar);
-        var buttonGroup = new FrameView()
+        buttonGroup = new FrameView()
         {
             Width = Dim.Fill(1),
             Height = Dim.Sized(10),
@@ -44,7 +43,13 @@ class SkillsScreen : CenteredWindow
         buttonGroup.Title = "Grupka";
 
         Add(buttonGroup);
+        RenderButtons();
+
         KeyPress += SkillsScreen_KeyPress;
+        BattleEngine.Player.OnSkillUnlocked += (sender, skill) =>
+        {
+            RenderButtons();
+        };
     }
 
 
@@ -53,8 +58,9 @@ class SkillsScreen : CenteredWindow
         Debug.WriteLine($"Key {e.KeyEvent.Key}");
     }
 
-    void RenderButtons(View lastView)
+    void RenderButtons()
     {
+        buttonGroup.RemoveAll();
         foreach (var skill in BattleEngine.Player.SkillList)
         {
             if (!skill.isUnlocked) continue;
@@ -65,8 +71,8 @@ class SkillsScreen : CenteredWindow
             {
                 HandleSkillButtonClick(button, skill);
             };
-            button.Y = Pos.Top(lastView) + skill.index + 1;
-            Add(button);
+            button.Y = skill.index;
+            buttonGroup.Add(button);
         }
     }
 
