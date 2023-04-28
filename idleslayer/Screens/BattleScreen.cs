@@ -23,8 +23,10 @@ namespace idleslayer.Views
             playerFrame.Add(playerView);
             var battleView = new BattleView();
             statusBar = new StatusBar(new StatusItem[] {
-        new StatusItem(Key.q | Key.Q | Key.CtrlMask,"~CTRL-Q~ - Quit",()=>{
-            Application.RequestStop();
+        new StatusItem(Key.CtrlMask | Key.Q,"~CTRL-Q~ - Quit",()=>{
+            Debug.WriteLine("Pressed CTRL-Q");
+            Game.MenuState = MenuState.Exit;
+            Game.ChangeView();
         }),
          new StatusItem(Key.s ,"~s~ - Skills Shop",()=>{
              Debug.WriteLine("Pressed S");
@@ -78,7 +80,7 @@ new StatusItem(Key.n, "~n~ - Next Location", () =>
             }
         }
 
-        private void OnGamePaused(object? sender, bool e)
+        private void OnGamePaused(bool e)
         {
             statusBar.Items.First(
                 v =>

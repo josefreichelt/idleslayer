@@ -17,10 +17,8 @@ class PlayerView : FrameView
 
 
         var name = new Label($"Name: {player.Name}") { Y = 0 };
-        gold = new Label(player.GoldString()) { Y = 0 };
-        gold.X = Pos.AnchorEnd() - gold.Text.Length;
-        var damage = new Label($"damage: {player.Damage}") { Y = 1 };
-        damage.X = Pos.AnchorEnd() - damage.Text.Length;
+        gold = new Label(player.GoldString()) { Y = 1 };
+        var damage = new Label(player.DamageString()) { Y = 2 };
         var locationView = new LocationView();
         BattleEngine.OnEnemyChanged += HandleEnemyChanged;
         Add(name, gold, damage, locationView);
@@ -31,7 +29,6 @@ class PlayerView : FrameView
         var player = BattleEngine.Player;
         var enemy = BattleEngine.CurrentEnemy;
         gold.Text = player.GoldString();
-        gold.X = Pos.AnchorEnd() - gold.Text.Length;
     }
 
 

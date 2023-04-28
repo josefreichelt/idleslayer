@@ -1,7 +1,6 @@
 namespace idleslayer;
 
 using idleslayer.Views;
-using System;
 using System.Diagnostics;
 using Terminal.Gui;
 class GameScreen : CenteredWindow
@@ -15,15 +14,15 @@ class GameScreen : CenteredWindow
         Game.OnGamePaused += OnGamePaused;
     }
 
-    private void OnGamePaused(object? sender, bool isPaused)
+    private void OnGamePaused(bool isPaused)
     {
-        Title = isPaused ? "[ IdleSlayer ]" : "[ IdleSlayer - Paused ]";
+        Title = isPaused ? "[ Idle Slayer ]" : "[ Idle Slayer - Paused ]";
     }
 
     private void GameView_Ready()
     {
         Debug.WriteLine("Activating GameView");
-        Application.Run(new BattleScreen());
+        Game.ChangeView();
     }
 
 

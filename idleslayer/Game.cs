@@ -6,17 +6,18 @@ using Terminal.Gui;
 
 class Game
 {
-    public static event EventHandler? OnGameTick;
-    public static event EventHandler<bool>? OnGamePaused;
+    public static event Action? OnGameTick;
+    public static event Action<bool>? OnGamePaused;
     public static BattleEngine BattleEngine = new BattleEngine();
     public static bool IsBattling = true;
-    public static MenuState MenuState = MenuState.Battle;
+    public static MenuState MenuState = MenuState.Shop;
 
-    static GameScreen GameView = new GameScreen();
+    static GameScreen GameScreen = new GameScreen();
 
 
     public Game()
     {
+        Application.QuitKey = Key.Null;
         Debug.WriteLine("Game created");
         BattleEngine.Setup();
         Application.MainLoop.AddTimeout(TimeSpan.FromSeconds(0.1), (loop) =>
@@ -25,14 +26,14 @@ class Game
             return true;
         });
         Debug.WriteLine("Running GameView");
-        Application.Run(GameView);
+        Application.Run(GameScreen);
 
     }
 
     public static void PauseGame(bool isPaused)
     {
         IsBattling = isPaused;
-        OnGamePaused?.Invoke(typeof(Game), isPaused);
+        OnGamePaused?.Invoke(isPaused);
     }
 
 
@@ -42,8 +43,12 @@ class Game
         {
             BattleEngine.ProcessBattle();
         }
-        OnGameTick?.Invoke(typeof(Program), EventArgs.Empty);
+        if(MenuState == MenuState.Exit){
+            Application.RequestStop();
+        }
+        OnGameTick?.Invoke();
     }
+
     public static void ChangeView()
     {
         switch (MenuState)
@@ -51,12 +56,14 @@ class Game
             case MenuState.MainMenu:
                 break;
             case MenuState.Battle:
-                GameView.SwapView(new BattleScreen());
+                GameScreen.SwapView(new BattleScreen());
                 break;
             case MenuState.Shop:
-                GameView.SwapView(new SkillsScreen());
+                GameScreen.SwapView(new SkillsScreen());
                 break;
             case MenuState.Exit:
+                Debug.WriteLine("Exiting game");
+                Application.RequestStop();
                 break;
         }
     }

@@ -7,8 +7,8 @@ class Player
     public int Damage { get; set; } = 1;
     public int Xp { get; set; } = 0;
     public List<Skill> SkillList = new List<Skill>();
-    public EventHandler<Skill>? OnSkillPurchased;
-    public EventHandler<Skill>? OnSkillUnlocked;
+    public event EventHandler<Skill>? OnSkillPurchased;
+    public event EventHandler<Skill>? OnSkillUnlocked;
     public Player()
     {
         GenerateSkills();
@@ -27,14 +27,18 @@ class Player
 
     public string GoldString()
     {
-        return $"{Gold} Gold Coins";
+        return $"Gold Coins: {Gold}";
+    }
+
+    public string DamageString(){
+        return $"Damage: {Damage}";
     }
 
     void GenerateSkills()
     {
-        SkillList.Add(new Skill("Slash", 1, 1) { isUnlocked = true });
+        SkillList.Add(new Skill("Punch", 1, 1) { isUnlocked = true });
         SkillList.Add(new Skill("Stab", 2, 2));
-        SkillList.Add(new Skill("Punch", 5, 10));
+        SkillList.Add(new Skill("Slash", 5, 3));
 
 
         for (int i = 0; i < SkillList.Count; i++)
