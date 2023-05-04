@@ -3,13 +3,13 @@ namespace idleslayer;
 class BattleEngine
 {
 
-    public static Player Player { get; set; } = new Player();
-    public static Enemy CurrentEnemy { get; set; } = new Enemy();
-    public static Location CurrentLocation { get; set; } = new Location();
-    public static List<Location> Locations = new List<Location>();
+    public Player Player { get; set; } = new Player();
+    public Enemy CurrentEnemy { get; set; } = new Enemy();
+    public Location CurrentLocation { get; set; } = new Location();
+    public List<Location> Locations = new List<Location>();
 
-    public static event EventHandler<Location>? OnLocationChanged;
-    public static event EventHandler<Enemy>? OnEnemyChanged;
+    public event EventHandler<Location>? OnLocationChanged;
+    public event EventHandler<Enemy>? OnEnemyChanged;
 
     public void Setup()
     {
@@ -35,7 +35,7 @@ class BattleEngine
         return (float)(value * Math.Pow((1 + rate), time));
     }
 
-    public static void ChangeLocation(bool isForward)
+    public void ChangeLocation(bool isForward)
     {
         var index = isForward ? CurrentLocation.index + 1 : CurrentLocation.index - 1;
         if (index >= Locations.Count || index < 0)
@@ -47,7 +47,7 @@ class BattleEngine
         OnLocationChanged?.Invoke(typeof(BattleEngine), CurrentLocation);
     }
 
-     static void GenerateLocations()
+    void GenerateLocations()
     {
         Locations.Add(new Location()
         {

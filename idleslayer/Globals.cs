@@ -3,6 +3,7 @@ using Terminal.Gui;
 public static class Globals
 {
     public static ColorScheme baseColorScheme { get; } = new ColorScheme();
+    public static ColorScheme buttonsScheme { get; } = new ColorScheme();
     public static ColorScheme invertedColorScheme { get; } = new ColorScheme();
     public static string GameTitle { get; } = "[ Idle Slayer ]";
 
@@ -11,8 +12,11 @@ public static class Globals
     {
         baseColorScheme.Normal = new Terminal.Gui.Attribute(Color.White, Color.Black);
         baseColorScheme.Focus = new Terminal.Gui.Attribute(Color.Blue, Color.Black);
+        baseColorScheme.HotFocus = new Terminal.Gui.Attribute(Color.Blue, Color.Black);
         invertedColorScheme.Normal = new Terminal.Gui.Attribute(Color.Black, Color.White);
         invertedColorScheme.Focus = new Terminal.Gui.Attribute(Color.Black, Color.Blue);
+        buttonsScheme.Normal = new Terminal.Gui.Attribute(Color.White, Color.Black);
+        buttonsScheme.Focus = new Terminal.Gui.Attribute(Color.Blue, Color.Black);
     }
 
    

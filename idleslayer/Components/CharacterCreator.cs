@@ -1,16 +1,12 @@
-﻿namespace idleslayer;
-using Terminal.Gui;
+namespace idleslayer;
 using NStack;
-
-
-public class CenterFrame : FrameView
+using Terminal.Gui;
+public class CenteredDialog : Dialog
 {
-    public CenterFrame(string title) : base(title)
+
+    public CenteredDialog(string title, int width, int height, params Button[] buttons) : base(title, width, height, buttons)
     {
-        X = Pos.Center();
-        Y = Pos.Center();
-        Width = Dim.Fill();
-        Height = Dim.Fill();
+
     }
 
     public override void Redraw(Rect bounds)

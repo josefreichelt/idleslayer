@@ -18,14 +18,14 @@ public class Skill
     {
         Title = title;
         BaseCost = cost;
-        Cost = (int)Math.Ceiling(BattleEngine.ExponentialGrowth(BaseCost, 1, 0.15f));
+        Cost = (int)Math.Ceiling(DataProcessor.ExponentialGrowth(BaseCost, 1, 0.15f));
         Damage = damage;
     }
 
     public void LevelUp()
     {
         CurrentLevel++;
-        Cost = (int)Math.Ceiling(BattleEngine.ExponentialGrowth(BaseCost, CurrentLevel, 0.15f));
+        Cost = (int)Math.Ceiling(DataProcessor.ExponentialGrowth(BaseCost, CurrentLevel, 0.15f));
     }
 
     public override string ToString()

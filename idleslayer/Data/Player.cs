@@ -1,6 +1,6 @@
 namespace idleslayer;
 
-class Player
+public class Player
 {
     public string Name { get; set; } = "Bob";
     public int Gold { get; set; } = 99;
@@ -13,6 +13,7 @@ class Player
     {
         GenerateSkills();
     }
+
     public void PurchaseSkill(Skill skill)
     {
         if (Gold >= skill.Cost)
@@ -30,7 +31,8 @@ class Player
         return $"Gold Coins: {Gold}";
     }
 
-    public string DamageString(){
+    public string DamageString()
+    {
         return $"Damage: {Damage}";
     }
 
@@ -53,7 +55,7 @@ class Player
         {
             if (SkillList[i - 1].CurrentLevel >= 10)
             {
-                if(SkillList[i].isUnlocked) continue;
+                if (SkillList[i].isUnlocked) continue;
                 SkillList[i].isUnlocked = true;
                 OnSkillUnlocked?.Invoke(this, SkillList[i]);
             }
