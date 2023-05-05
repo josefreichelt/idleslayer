@@ -16,6 +16,8 @@ public class MainScreen : CenteredWindow
         LayoutComplete += MainScreen_LayoutComplete;
         Added += MainScreen_Added;
         DrawContentComplete += MainScreen_DrawContentComplete;
+        App.GameSystem.OnGamePaused += OnGamePaused;
+        App.GameSystem.OnGameResumed += OnGameResumed;
     }
 
     private void GameView_Loaded()

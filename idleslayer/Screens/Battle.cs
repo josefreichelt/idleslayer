@@ -11,6 +11,7 @@ public class BattleScreen : CenterFrame
         var playerView = new PlayerView();
         var enemyView = new EnemyView();
         enemyView.Y = Pos.Bottom(playerView);
-        Add(playerView, enemyView);
+        var battleControls = new BattleControls();
+        Add(playerView, enemyView, battleControls);
     }
 }

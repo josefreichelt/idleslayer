@@ -32,7 +32,7 @@ public class SceneManager
                 MainScreen.ChangeView(new BattleScreen());
                 break;
             case MenuState.Shop:
-
+                MainScreen.ChangeView(new SkillsScreen());
                 break;
             case MenuState.Exit:
                 Debug.WriteLine("Exiting game");

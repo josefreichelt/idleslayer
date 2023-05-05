@@ -15,7 +15,7 @@ public class LocationSystem
     public void ChangeLocation(bool isForward)
     {
         var index = isForward ? CurrentLocation.index + 1 : CurrentLocation.index - 1;
-        if (index >= Locations.Count || index < 0)
+        if (index > Locations.Count || index < 0)
         {
             index = 0;
         }
@@ -52,7 +52,7 @@ public class LocationSystem
 
 
 
-        for (int i = 0; i < Locations.Count - 1; i++)
+        for (int i = 0; i <= Locations.Count - 1; i++)
         {
             Locations[i].index = i;
             if (i == Locations.Count - 1)

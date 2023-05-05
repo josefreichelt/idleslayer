@@ -5,7 +5,7 @@ public class GameSystem
     public event Action? OnGameTick;
     public event Action? OnGamePaused;
     public event Action? OnGameResumed;
-    static bool isPaused = false;
+    public bool isPaused { get; private set; } = false;
     public readonly BattleSystem BattleSystem;
     public readonly LocationSystem LocationSystem;
     public readonly Player Player = new Player();
@@ -43,5 +43,17 @@ public class GameSystem
     {
         isPaused = false;
         OnGameResumed?.Invoke();
+    }
+
+    public void TogglePause()
+    {
+        if (isPaused)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+        }
     }
 }
