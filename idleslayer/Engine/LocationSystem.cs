@@ -9,6 +9,7 @@ public class LocationSystem
     public LocationSystem()
     {
         GenerateLocations();
+        CurrentLocation = Locations[0];
     }
 
     public void ChangeLocation(bool isForward)

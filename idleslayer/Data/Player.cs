@@ -26,6 +26,11 @@ public class Player
         }
     }
 
+    public string NameString()
+    {
+        return $"Name: {Name}";
+    }
+
     public string GoldString()
     {
         return $"Gold Coins: {Gold}";

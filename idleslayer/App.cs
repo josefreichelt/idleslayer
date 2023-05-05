@@ -19,7 +19,7 @@ class App
 
     public bool GameLoop(MainLoop loop)
     {
-
+        GameSystem.GameLoop();
         return true;
     }
 

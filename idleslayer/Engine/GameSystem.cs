@@ -29,7 +29,9 @@ public class GameSystem
         {
             BattleSystem.BattleTick(Player, CurrentEnemy);
         }
+        OnGameTick?.Invoke();
     }
+
 
     public void PauseGame()
     {
