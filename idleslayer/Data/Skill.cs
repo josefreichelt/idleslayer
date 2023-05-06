@@ -2,13 +2,13 @@ namespace idleslayer;
 
 public class Skill
 {
-    public int index { get; set; } = 0;
+    public int Index { get; set; } = 0;
     public string Title { get; set; } = "";
     public int Cost { get; set; } = 0;
     public int BaseCost { get; set; } = 0;
     public int Damage { get; set; } = 0;
     public int CurrentLevel { get; set; } = 0;
-    public bool isUnlocked { get; set; } = false;
+    public bool IsUnlocked { get; set; } = false;
 
     public Skill()
     {
@@ -30,6 +30,6 @@ public class Skill
 
     public override string ToString()
     {
-        return $"_{index} | LVL:{CurrentLevel} - {Title} - {Cost} gold - {Damage} damage";
+        return $"_{Index} | LVL:{CurrentLevel} - {Title} - {Cost} gold - {Damage} damage";
     }
 }

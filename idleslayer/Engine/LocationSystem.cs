@@ -59,6 +59,12 @@ public class LocationSystem
             {
                 Locations[i].IsLast = true;
             }
+            for (int e = 0; e < Locations[i].Enemies.Count; e++)
+            {
+                var enemy = Locations[i].Enemies[e];
+                enemy.HealthMax = (float)Math.Ceiling(DataProcessor.ExponentialGrowth(enemy.HealthMax, i + e + 1, 0.15f));
+                enemy.Health = enemy.HealthMax;
+            }
         }
 
     }

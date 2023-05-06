@@ -13,6 +13,13 @@ public class CharacterCreator : CenteredDialog
     {
         createButton.Clicked += CreateButton_Clicked;
         createButton.IsDefault = false;
+        nameField.KeyPress += (e) =>
+        {
+            if (e.KeyEvent.Key == Key.Enter)
+            {
+                CreateButton_Clicked();
+            }
+        };
         Add(nameLabel, nameField);
         AddButton(createButton);
     }

@@ -43,14 +43,14 @@ public class Player
 
     void GenerateSkills()
     {
-        SkillList.Add(new Skill("Punch", 1, 1) { isUnlocked = true });
+        SkillList.Add(new Skill("Punch", 1, 1) { IsUnlocked = true });
         SkillList.Add(new Skill("Stab", 2, 2));
         SkillList.Add(new Skill("Slash", 5, 3));
 
 
         for (int i = 0; i < SkillList.Count; i++)
         {
-            SkillList[i].index = i + 1;
+            SkillList[i].Index = i + 1;
         }
     }
 
@@ -60,8 +60,8 @@ public class Player
         {
             if (SkillList[i - 1].CurrentLevel >= 10)
             {
-                if (SkillList[i].isUnlocked) continue;
-                SkillList[i].isUnlocked = true;
+                if (SkillList[i].IsUnlocked) continue;
+                SkillList[i].IsUnlocked = true;
                 OnSkillUnlocked?.Invoke(this, SkillList[i]);
             }
         }

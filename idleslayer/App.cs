@@ -11,7 +11,7 @@ class App
     {
         Debug.WriteLine("Game created");
         Application.QuitKey = Key.Null;
-        Application.MainLoop.AddTimeout(TimeSpan.FromSeconds(0.1), GameLoop);
+        Application.MainLoop.AddTimeout(TimeSpan.FromSeconds(0.5), GameLoop);
         SceneManager.Init();
         Debug.WriteLine("Running GameView");
 

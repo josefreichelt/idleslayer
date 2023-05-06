@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Terminal.Gui;
 public class SceneManager
 {
-    MenuState _menuState = MenuState.Battle;
+    MenuState _menuState = MenuState.MainMenu;
     public MenuState MenuState
     {
         get { return _menuState; }

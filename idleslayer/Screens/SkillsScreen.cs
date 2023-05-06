@@ -18,15 +18,11 @@ class SkillsScreen : CenterFrame
         player = App.GameSystem.Player;
         ColorScheme = Globals.baseColorScheme;
 
+        CanFocus = true;
         goldLabel = new Label(player.GoldString()) { Y = 0 };
         damageLabel = new Label(player.DamageString()) { Y = 1 };
-        var statusBar = new StatusBar(new StatusItem[] {
-        new StatusItem(Key.b, "~b~ Back",()=>{
-                App.GameSystem.ResumeGame();
-                App.SceneManager.MenuState = MenuState.Battle;
-            })
-        });
-        Add(goldLabel, damageLabel, statusBar);
+
+        Add(goldLabel, damageLabel, new ShopControls());
         buttonGroup = new FrameView()
         {
             Width = Dim.Fill(1),
@@ -45,21 +41,21 @@ class SkillsScreen : CenterFrame
     void RenderSkillButtons()
     {
         buttonGroup.RemoveAll();
+        buttonGroup.CanFocus = true;
         foreach (var skill in player.SkillList)
         {
-            if (!skill.isUnlocked) continue;
+            if (!skill.IsUnlocked) continue;
             var buttonTitle = skill.ToString();
             var button = new Button(buttonTitle);
-
+            button.CanFocus = true;
             button.IsDefault = false;
             button.Clicked += () =>
             {
                 HandleSkillButtonClick(button, skill);
             };
-            button.Y = skill.index;
+            button.Y = skill.Index;
             buttonGroup.Add(button);
         }
-        buttonGroup.FocusFirst();
     }
 
     // Skills got updated, so we need to re-render the buttons

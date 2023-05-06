@@ -18,8 +18,8 @@ public class Enemy
     public Enemy(string name, float health, int gold)
     {
         Name = name;
-        Health = health;
-        HealthMax = health;
+        HealthMax = (float)Math.Ceiling(DataProcessor.ExponentialGrowth(health, 1, 0.15f));
+        Health = HealthMax;
         Gold = gold;
     }
 
@@ -27,6 +27,8 @@ public class Enemy
     {
         Health = HealthMax;
     }
+
+    
 
 
 }
