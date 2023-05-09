@@ -3,7 +3,21 @@ namespace idleslayer;
 public class Player
 {
     public string Name { get; set; } = "Bob";
-    public int Gold { get; set; } = 99;
+    int gold = 50;
+    public int TotalGold { get; private set; } = 0;
+    public int Gold
+    {
+        get
+        {
+            return gold;
+        }
+        set
+        {
+            gold = value;
+            TotalGold += value;
+        }
+    }
+
     public int Damage { get; set; } = 1;
     public int Xp { get; set; } = 0;
     public List<Skill> SkillList = new List<Skill>();

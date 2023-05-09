@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Terminal.Gui;
 public class SceneManager
 {
-    MenuState _menuState = MenuState.MainMenu;
+    MenuState _menuState = MenuState.Battle;
     public MenuState MenuState
     {
         get { return _menuState; }
@@ -16,6 +16,15 @@ public class SceneManager
     }
     public Action<MenuState>? OnMenuStateChanged;
     public MainScreen MainScreen = new MainScreen();
+
+    public SceneManager(){
+        App.GameSystem.OnGameReset += OnGameReset;
+    }
+
+    private void OnGameReset()
+    {
+        MenuState = MenuState.MainMenu;
+    }
 
     public void Init()
     {
@@ -33,6 +42,9 @@ public class SceneManager
                 break;
             case MenuState.Shop:
                 MainScreen.ChangeView(new SkillsScreen());
+                break;
+            case MenuState.Victory:
+                MainScreen.ChangeView(new VictoryScreen());
                 break;
             case MenuState.Exit:
                 Debug.WriteLine("Exiting game");

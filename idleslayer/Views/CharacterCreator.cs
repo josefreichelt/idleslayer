@@ -26,7 +26,17 @@ public class CharacterCreator : CenteredDialog
 
     private void CreateButton_Clicked()
     {
-        App.GameSystem.Player.Name = nameField.Text.ToString() ?? "Hero";
+        var name = nameField.Text.ToString();
+        if (name != null && name.Length > 0)
+        {
+            App.GameSystem.Player.Name = name;
+        }
+        else
+        {
+            Debug.WriteLine("Invalid character name");
+            return;
+        }
+
         Application.RequestStop();
         App.SceneManager.MenuState = MenuState.Battle;
 

@@ -5,17 +5,25 @@ public class GameSystem
     public event Action? OnGameTick;
     public event Action? OnGamePaused;
     public event Action? OnGameResumed;
+    public event Action? OnGameReset;
     public bool isPaused { get; private set; } = false;
-    public readonly BattleSystem BattleSystem;
-    public readonly LocationSystem LocationSystem;
-    public readonly Player Player = new Player();
+    public BattleSystem BattleSystem;
+    public LocationSystem LocationSystem;
+    public Player Player = new Player();
     public Enemy CurrentEnemy { get; private set; } = new Enemy();
 
     public GameSystem()
     {
+        Player = new Player();
         LocationSystem = new LocationSystem();
         BattleSystem = new BattleSystem(LocationSystem);
         BattleSystem.OnEnemySpawned += OnEnemySpawned;
+        LocationSystem.OnLocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(Location location)
+    {
+        CurrentEnemy = location.GetRandomEnemy();
     }
 
     private void OnEnemySpawned(Enemy enemy)
@@ -55,5 +63,19 @@ public class GameSystem
         {
             PauseGame();
         }
+    }
+
+
+    public void ResetGame()
+    {
+        OnGameReset?.Invoke();
+        BattleSystem.OnEnemySpawned -= OnEnemySpawned;
+        LocationSystem.OnLocationChanged -= OnLocationChanged;
+        Player = new Player();
+        LocationSystem = new LocationSystem();
+        LocationSystem.OnLocationChanged += OnLocationChanged;
+        BattleSystem = new BattleSystem(LocationSystem);
+        BattleSystem.OnEnemySpawned += OnEnemySpawned;
+        ResumeGame();
     }
 }
