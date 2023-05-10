@@ -32,3 +32,8 @@ jobs:
       with:
         name: Application_Artifact
         path: D:\a\idleslayer\idleslayer\release\
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: IdleSlayerWin
+        path: D:\a\idleslayer\idleslayer\release\
