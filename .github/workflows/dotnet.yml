@@ -26,7 +26,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Publish
-      run: dotnet publish idleslayer/idleslayer.csproj -c Release -o release
+      run: dotnet publish idleslayer/idleslayer.csproj -c Release -o release --self-contained
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
