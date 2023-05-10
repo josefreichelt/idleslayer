@@ -37,7 +37,7 @@ public class LocationSystem
         {
             Title = "Camp Outskirts",
             Enemies = new List<Enemy>() {
-                new Enemy("Chicken", 20, 2),
+                new Enemy("Chicken", 40, 2),
                 new Enemy("Killer Rabbit", 50, 3),
             }
         });

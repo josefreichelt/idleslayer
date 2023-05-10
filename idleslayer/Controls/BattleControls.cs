@@ -31,9 +31,9 @@ public class BattleControls : StatusBar
     });
 
     StatusItem previousLocationButton = new StatusItem(Key.b, "~b~ - Previous Location", () =>
-{
-    App.GameSystem.LocationSystem.ChangeLocation(true);
-});
+    {
+        App.GameSystem.LocationSystem.ChangeLocation(false);
+    });
 
     LocationSystem locationSystem;
     public BattleControls()
@@ -42,10 +42,13 @@ public class BattleControls : StatusBar
         AddItemAt(0, quitButton);
         AddItemAt(1, pauseButton);
         AddItemAt(2, skillShopButton);
-        AddItemAt(3, nextLocationButton);
+        if (!locationSystem.CurrentLocation.IsLast)
+        {
+            AddItemAt(Items.Count(), nextLocationButton);
+        }
         if (locationSystem.CurrentLocation.index > 0)
         {
-            AddItemAt(4, previousLocationButton);
+            AddItemAt(Items.Count(), previousLocationButton);
         }
         App.SceneManager.OnMenuStateChanged += HandleMenuStateChanged;
         locationSystem.OnLocationChanged += HandleLocationChanged;
@@ -57,19 +60,16 @@ public class BattleControls : StatusBar
     {
         if (state == MenuState.Battle)
         {
-            var previousButtonIndex = Items.ToList().FindIndex(v => (v.Title.ToString() ?? "").Contains("Previous"));
-            var nextButtonIndex = Items.ToList().FindIndex(v => (v.Title.ToString() ?? "").Contains("Next"));
-            if (nextButtonIndex != -1)
-            {
-                RemoveItem(nextButtonIndex);
-            }
-            if (previousButtonIndex != -1)
-            {
-                RemoveItem(previousButtonIndex);
-            }
-
-            HandleLocationChanged(locationSystem.CurrentLocation);
+            // for (int i = 0; i < Items.Count(); i++)
+            // {
+            //     RemoveItem(i);
+            // }
+            // AddItemAt(0, quitButton);
+            // AddItemAt(1, pauseButton);
+            // AddItemAt(2, skillShopButton);
+            // HandleLocationChanged(locationSystem.CurrentLocation);
         }
+
     }
 
     void OnGameResumed()

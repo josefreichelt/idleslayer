@@ -10,7 +10,7 @@ public class GameSystem
     public BattleSystem BattleSystem;
     public LocationSystem LocationSystem;
     public Player Player = new Player();
-    public Enemy CurrentEnemy { get; private set; } = new Enemy();
+    public Enemy? CurrentEnemy { get; private set; } = null;
 
     public GameSystem()
     {
@@ -33,9 +33,13 @@ public class GameSystem
 
     public void GameLoop()
     {
-        if (!isPaused)
+        if (!isPaused && CurrentEnemy != null)
         {
             BattleSystem.BattleTick(Player, CurrentEnemy);
+        }
+        if (!isPaused && CurrentEnemy == null)
+        {
+            CurrentEnemy = LocationSystem.CurrentLocation.GetRandomEnemy();
         }
         OnGameTick?.Invoke();
     }

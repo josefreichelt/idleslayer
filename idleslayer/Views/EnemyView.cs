@@ -18,8 +18,8 @@ class EnemyView : FrameView
         var enemy = App.GameSystem.CurrentEnemy;
         var enemyColorScheme = new ColorScheme();
         enemyColorScheme.Normal = new Terminal.Gui.Attribute(Color.Red, Color.Gray);
-        enemyName = new Label($"{enemy.Name}") { Y = 0, X = Pos.Center() };
-        enemyHp = new Label($"HP: {enemy.Health}") { Y = 1, X = Pos.Center() };
+        enemyName = new Label($"{enemy?.Name ?? ""}") { Y = 0, X = Pos.Center() };
+        enemyHp = new Label($"HP: {enemy?.Health ?? 0}") { Y = 1, X = Pos.Center() };
 
         enemyHealthBar = new ProgressBar()
         {
@@ -27,7 +27,7 @@ class EnemyView : FrameView
             Y = Pos.Bottom(enemyHp),
             Width = Dim.Fill(),
             Height = 1,
-            Fraction = enemy.Health / enemy.HealthMax,
+            Fraction = enemy?.Health ?? 0 / enemy?.HealthMax ?? 1,
             ProgressBarStyle = ProgressBarStyle.Continuous,
             ColorScheme = enemyColorScheme,
         };
@@ -42,6 +42,10 @@ class EnemyView : FrameView
     public void HandleGameTick()
     {
         var enemy = App.GameSystem.CurrentEnemy;
+        if(enemy == null)
+        {
+            return;
+        }
         enemyName.Text = $"{enemy.Name}";
         enemyHp.Text = $"HP: {enemy.Health}";
         enemyHealthBar.Fraction = enemy.Health / enemy.HealthMax;
