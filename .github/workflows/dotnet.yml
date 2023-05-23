@@ -10,25 +10,31 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
-
     steps:
+    # Checkout
     - uses: actions/checkout@v3
     - name: Setup .NET
+    #Build
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
     - name: Publish
       run: dotnet publish idleslayer/idleslayer.csproj -c Release -o release --self-contained -p:PublishSingleFile=true -p:PublishTrimmed=true
     - name: Upload a Build Artifact
+    # Upload artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
         name: IdleSlayerWin
         path: D:\a\idleslayer\idleslayer\release\
+    # Latest Release
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        title: "Latest Build"
+        files: |
+            LICENSE.txt
+            *D:\a\idleslayer\idleslayer\release\
