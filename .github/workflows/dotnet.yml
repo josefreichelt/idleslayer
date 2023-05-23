@@ -5,8 +5,8 @@ name: .NET
 
 on:
   push:
-    branches: [ "main" ]
- 
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -23,23 +23,11 @@ jobs:
       run: dotnet restore
     - name: Publish
       run: dotnet publish idleslayer/idleslayer.csproj -c Release -o release --self-contained -p:PublishSingleFile=true -p:PublishTrimmed=true
-    # Zip
-    - name: Easy Zip Files
-      uses: vimtor/action-zip@v1.1
-      with:
-        files: idleslayer\idleslayer\release\
-        dest: idleslayer_win.zip
     - name: Easy Zip Files
       uses: vimtor/action-zip@v1.1
       with:
         files: release\
-        dest: idleslayer_win2.zip
-      # Upload artifacts
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: IdleSlayerWin
-        path: D:\a\idleslayer\idleslayer\release\
+        dest: idleslayer_win.zip
     # Latest Release
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
