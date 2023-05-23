@@ -43,7 +43,7 @@ public class LocationSystem
         });
         Locations.Add(new Location()
         {
-            Title = "Forrest",
+            Title = "Forest",
             Enemies = new List<Enemy>() {
                 new Enemy("Wild Boar", 200, 7),
                 new Enemy("Angry Deer", 100, 5),
@@ -52,10 +52,10 @@ public class LocationSystem
         });
         Locations.Add(new Location()
         {
-            Title = "Dark Forrest",
+            Title = "Dark Forest",
             Enemies = new List<Enemy>() {
                 new Enemy("Giant Spider", 500, 20),
-                new Enemy("Wywern", 750, 40),
+                new Enemy("Wyvern", 750, 40),
             }
         });
         Locations.Add(new Location()
