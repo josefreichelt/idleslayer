@@ -36,5 +36,4 @@ jobs:
         automatic_release_tag: "latest"
         title: "Latest Build"
         files: |
-            LICENSE.txt
-            *D:\a\idleslayer\idleslayer\release\
+            D:\a\idleslayer\idleslayer\release\*
