@@ -23,8 +23,14 @@ jobs:
       run: dotnet restore
     - name: Publish
       run: dotnet publish idleslayer/idleslayer.csproj -c Release -o release --self-contained -p:PublishSingleFile=true -p:PublishTrimmed=true
+    # Zip
+    - name: Easy Zip Files
+      uses: vimtor/action-zip@v1.1
+      with:
+        files: D:\a\idleslayer\idleslayer\release\*
+        dest: idleslayer_win.zip
+      # Upload artifacts
     - name: Upload a Build Artifact
-    # Upload artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
         name: IdleSlayerWin
@@ -36,4 +42,4 @@ jobs:
         automatic_release_tag: "latest"
         title: "Latest Build"
         files: |
-            D:\a\idleslayer\idleslayer\release\*
+          idleslayer_win.zip
