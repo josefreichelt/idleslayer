@@ -27,8 +27,13 @@ jobs:
     - name: Easy Zip Files
       uses: vimtor/action-zip@v1.1
       with:
-        files: D:\a\idleslayer\idleslayer\release\
+        files: idleslayer\idleslayer\release\
         dest: idleslayer_win.zip
+    - name: Easy Zip Files
+      uses: vimtor/action-zip@v1.1
+      with:
+        files: release\
+        dest: idleslayer_win2.zip
       # Upload artifacts
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.2
@@ -43,3 +48,4 @@ jobs:
         title: "Latest Build"
         files: |
           idleslayer_win.zip
+          idleslayer_win2.zip
